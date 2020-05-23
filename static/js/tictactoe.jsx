@@ -1,6 +1,7 @@
 "use strict";
 
 let turn = 'x';
+let moves = [['_','_','_'],['_','_','_'],['_','_','_']];
 
 class Square extends React.Component {
   constructor(props) {
@@ -20,6 +21,10 @@ class Square extends React.Component {
       return;
     }
     this.setState({clicked: true});
+    const key = this.props.name;
+    const row = key.split('.')[0];
+    const col = key.split('.')[1];
+    moves[row][col] = turn;
     if (turn === 'x') {
       this.setState({imgUrl: '/static/images/x.jpeg'});
       turn = 'o';
@@ -30,7 +35,6 @@ class Square extends React.Component {
   }
 
   render() {
-    
     return (
       <button onClick={this.handleClick}><img src={this.state.imgUrl} /></button>
     );
@@ -52,9 +56,9 @@ class Board extends React.Component {
     for (let i=0; i<3; i++) {
       board.push(
         <div key={i} className='row'>
-          <Square key={`${i}.0`} />
-          <Square key={`${i}.1`} />
-          <Square key={`${i}.2`} />
+          <Square key={`${i}.0`} name={`${i}.0`} />
+          <Square key={`${i}.1`} name={`${i}.1`}/>
+          <Square key={`${i}.2`} name={`${i}.2`}/>
         </div>
       );
     }
