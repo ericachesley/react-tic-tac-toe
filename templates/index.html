@@ -1,16 +1,18 @@
-{% extends 'base.html' %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tic Tac Toe</title>
 
-{% block head %}
-  <link rel="stylesheet" href="/static/css/styles.css">
-{% endblock head %}
+    <link rel="stylesheet" href="/static/css/styles.css">
 
-{% block body %}
-  <nav class="small">
-    <a href="/sharkwords-final">View the complete version here</a>
-    <a href="/more">More demos!</a>
-  </nav>
-
-  <div id="root"></div>
-
-  <script src="/static/js/sharkwords.jsx" type="text/jsx"></script>
-{% endblock %}
+    <script src="/static/lib/babel-standalone.js"></script>
+    <script src="/static/lib/react.development.js"></script>
+    <script src="/static/lib/react-dom.development.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+  <script src="/static/js/tictactoe.jsx" type="text/jsx"></script>
+  </body>
+</html>

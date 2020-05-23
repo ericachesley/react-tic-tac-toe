@@ -1,8 +1,18 @@
-body {
+/*body {
 	font-family: sans-serif;
+}*/
+
+.row {
+	display: inline-block;
+	margin: 0;
 }
 
-#root {
+img {
+	height: 100px;
+	width: 100px;
+}
+
+/*#root {
 	font-family: monospace;
 	font-size: 52px;
 }
@@ -87,3 +97,4 @@ cite {
 	line-height: 1.5em;
 	max-width: 600px;
 }
+*/
