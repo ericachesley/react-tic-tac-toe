@@ -3,6 +3,47 @@
 let turn = 'x';
 let moves = [['_','_','_'],['_','_','_'],['_','_','_']];
 
+function checkWin() {
+  checkWinAcross();
+  checkWinDown();
+  checkWinDiag();
+}
+
+function checkWinAcross() {
+  for (const row of moves) {
+    if (row[0] === '_') {
+      continue;
+    }
+    if (row[0] === row[1] && row[0] === row[2]) {
+      alert (`${row[0]} wins!`)
+    }
+  }
+}
+
+function checkWinDown() {
+  for (let col=0; col<3; col++) {
+    if (moves[0][col] === '_') {
+      continue;
+    }
+    if (moves[0][col] === moves[1][col] && moves[0][col] === moves[2][col]) {
+      alert (`${moves[0][col]} wins!`)
+    }
+  }
+}
+
+function checkWinDiag() {
+  if (moves[0][0] !== '_' 
+      && moves[0][0] === moves[1][1] 
+      && moves[0][0] === moves[2][2]) {
+    alert (`${moves[0][0]} wins!`)
+  }
+  if (moves[0][2] !== '_' 
+      && moves[0][2] === moves[1][1] 
+      && moves[0][2] === moves[2][0]) {
+    alert (`${moves[0][2]} wins!`)
+  }
+}
+
 class Square extends React.Component {
   constructor(props) {
     super(props);
@@ -32,6 +73,7 @@ class Square extends React.Component {
       this.setState({imgUrl: '/static/images/o.png'});
       turn = 'x';
     }
+    checkWin();
   }
 
   render() {
@@ -40,7 +82,6 @@ class Square extends React.Component {
     );
   }
 }
-
 
 class Board extends React.Component {
   constructor(props) {
