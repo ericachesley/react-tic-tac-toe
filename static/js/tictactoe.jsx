@@ -3,10 +3,24 @@
 let turn = 'x';
 let moves = [['_','_','_'],['_','_','_'],['_','_','_']];
 
+
+function showWinner(winner) {
+  ReactDOM.render(
+    <Winner winner={winner} />,
+    document.querySelector('#winner')
+  );
+}
+
 function checkWin() {
-  checkWinAcross();
-  checkWinDown();
-  checkWinDiag();
+  if (checkWinAcross()) {
+    showWinner(checkWinAcross());
+  }
+  if (checkWinDown()) {
+    showWinner(checkWinDown());
+  }
+  if (checkWinDiag()) {
+    showWinner(checkWinDiag());
+  }
 }
 
 function checkWinAcross() {
@@ -15,7 +29,7 @@ function checkWinAcross() {
       continue;
     }
     if (row[0] === row[1] && row[0] === row[2]) {
-      alert (`${row[0]} wins!`)
+      return row[0];
     }
   }
 }
@@ -26,7 +40,7 @@ function checkWinDown() {
       continue;
     }
     if (moves[0][col] === moves[1][col] && moves[0][col] === moves[2][col]) {
-      alert (`${moves[0][col]} wins!`)
+      return moves[0][col];
     }
   }
 }
@@ -35,12 +49,12 @@ function checkWinDiag() {
   if (moves[0][0] !== '_' 
       && moves[0][0] === moves[1][1] 
       && moves[0][0] === moves[2][2]) {
-    alert (`${moves[0][0]} wins!`)
+    return moves[0][0];
   }
   if (moves[0][2] !== '_' 
       && moves[0][2] === moves[1][1] 
       && moves[0][2] === moves[2][0]) {
-    alert (`${moves[0][2]} wins!`)
+    return moves[0][2];
   }
 }
 
@@ -50,7 +64,8 @@ class Square extends React.Component {
 
     this.state = {
       clicked: false,
-      imgUrl: '/static/images/square.png'
+      imgUrl: '/static/images/square.png',
+      winner: null
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -73,7 +88,7 @@ class Square extends React.Component {
       this.setState({imgUrl: '/static/images/o.png'});
       turn = 'x';
     }
-    checkWin();
+    checkWin()
   }
 
   render() {
@@ -109,83 +124,13 @@ class Board extends React.Component {
   }
 }
 
-// class Game extends React.Component {
-//   constructor(props) {
-//     super(props);
-
-//     this.state = {
-//       turn: 'x'
-//     };
-
-//     this.takeTurn = this.takeTurn.bind(this);
-
-//     takeTurn() {
-//       const player = this.state.turn
-//     }
-// }
-
-//   renderWord() {
-//     const charDivs = [];
-//     for (const [ i, letter ] of Object.entries(this.props.word)) {
-//       let displayLetter;
-//       if (this.state.guessedLetters.includes(letter)) {
-//         displayLetter = letter;
-//       }
-
-//       charDivs.push(
-//         <div key={i} className="letter-box">
-//           {displayLetter}
-//         </div>
-//       );
-//     }
-
-//     return charDivs;
-//   }
-
-//   renderLetterButtons() {
-//     const letterBtns = [];
-//     for (const letter of ALPHABET) {
-//       const handleClick = () => {
-//         this.guessLetter(letter);
-//       };
-
-//       letterBtns.push(
-//         <button
-//           key={letter}
-//           onClick={handleClick}
-//         >
-//           {letter}
-//         </button>
-//       );
-//     }
-
-//     return letterBtns;
-//   }
-
-//   guessLetter(letter) {
-//     this.setState((prevState) => {
-//       return {
-//         guessedLetters: prevState.guessedLetters + [letter]
-//       };
-//     });
-
-//     if (!this.props.word.includes(letter)) {
-//       this.setState((prevState) => {
-//         return {
-//           numWrong: prevState.numWrong + 1
-//         };
-//       });
-//     }
-//   }
-
-//   render() {
-//     return (
-//       <div>
-        
-//       </div>
-//   );
-// }
-
+class Winner extends React.Component {
+  render() {
+    return(
+      <p> {this.props.winner} wins! </p>
+    )
+  }
+}
 
 ReactDOM.render(
   <Board />,
